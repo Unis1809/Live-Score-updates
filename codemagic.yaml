@@ -3,18 +3,9 @@ workflows:
     name: Main Workflow
     environment:
       vars:
-        XCODE_SCHEME: "lib"
-        XCODE_WORKSPACE: "lib.xcworkspace"
-        XCODE_PROJECT: "lib.xcodeproj"
+        XCODE_SCHEME: "UniScore"
+        XCODE_PROJECT: "UniScore.xcodeproj"  # Update project name here
     scripts:
-      - name: Create Xcode Workspace
-        script: |
-          #!/bin/bash
-          xcodebuild -project $XCODE_PROJECT -scheme $XCODE_SCHEME -derivedDataPath build archive
-          touch lib.xcworkspace
-          echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Workspace></Workspace>" > lib.xcworkspace
-          echo "Xcode Workspace 'lib.xcworkspace' created successfully."
-
       - name: Install CocoaPods
         script: |
           #!/bin/bash
@@ -30,6 +21,6 @@ workflows:
       - name: Build and test
         script: |
           #!/bin/bash
-          xcodebuild -workspace $XCODE_WORKSPACE -scheme $XCODE_SCHEME clean build test
+          xcodebuild -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME" clean build test  # Update build command
 
       # Add more steps as needed for your specific workflow
