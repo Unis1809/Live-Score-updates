@@ -7,10 +7,21 @@ workflows:
         XCODE_WORKSPACE: "UniScore.xcworkspace"
         XCODE_PROJECT: "UniScore.xcodeproj"
     scripts:
+      - name: Install Ruby
+        script: |
+          #!/bin/bash
+          apt-get update
+          apt-get install -y ruby-full
+
       - name: Install CocoaPods
         script: |
           #!/bin/bash
-          gem install cocoapods
+          gem install --user-install cocoapods -v 1.11.2
+
+      - name: Install Dependencies
+        script: |
+          #!/bin/bash
+          export PATH=$HOME/.gem/ruby/$(ls $HOME/.gem/ruby)/bin:$PATH
           pod install
 
       - name: Build and test
