@@ -11,6 +11,7 @@ workflows:
         script: |
           #!/bin/bash
           touch lib.xcworkspace
+          echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Workspace></Workspace>" > lib.xcworkspace
           echo "Xcode Workspace 'lib.xcworkspace' created successfully."
 
       - name: Install CocoaPods
