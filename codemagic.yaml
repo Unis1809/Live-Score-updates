@@ -7,6 +7,12 @@ workflows:
         XCODE_WORKSPACE: "lib.xcworkspace"
         XCODE_PROJECT: "lib.xcodeproj"
     scripts:
+      - name: Create Xcode Workspace
+        script: |
+          #!/bin/bash
+          touch lib.xcworkspace
+          echo "Xcode Workspace 'lib.xcworkspace' created successfully."
+
       - name: Install CocoaPods
         script: |
           #!/bin/bash
