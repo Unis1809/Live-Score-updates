@@ -1,11 +1,12 @@
 workflows:
   main:
-    name: Main Workflow
+    name: Build iOS App
     environment:
       flutter: stable
+      xcode: latest
     scripts:
-      - name: Install Dependencies
+      - name: Install dependencies
         script: flutter pub get
       - name: Build iOS App
-        script: flutter build ios
-      # Add more steps as needed, such as running tests or code analysis
+        script: flutter build ios --release --no-codesign
+      # Add more steps as needed for your specific workflow
