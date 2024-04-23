@@ -2,25 +2,10 @@ workflows:
   main:
     name: Main Workflow
     environment:
-      vars:
-        XCODE_SCHEME: "UniScore"
-        XCODE_PROJECT: "UniScore.xcodeproj"  # Update project name here
+      flutter: stable
     scripts:
-      - name: Install CocoaPods
-        script: |
-          #!/bin/bash
-
-          if [ -f "Podfile" ]; then
-            echo "Podfile found, installing CocoaPods dependencies..."
-            gem install cocoapods
-            pod install
-          else
-            echo "Podfile not found, skipping CocoaPods installation."
-          fi
-
-      - name: Build and test
-        script: |
-          #!/bin/bash
-          xcodebuild -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME" clean build test  # Update build command
-
-      # Add more steps as needed for your specific workflow
+      - name: Install Dependencies
+        script: flutter pub get
+      - name: Build iOS App
+        script: flutter build ios
+      # Add more steps as needed, such as running tests or code analysis
