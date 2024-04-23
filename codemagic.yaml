@@ -2,9 +2,9 @@ workflows:
   main:
     name: Main Workflow
     environment:
+      XCODE_PROJECT: "UniScore.xcodeproj"
       XCODE_SCHEME: "UniScore"
       XCODE_WORKSPACE: "UniScore.xcworkspace"
-      XCODE_PROJECT: "UniScore.xcodeproj"
     scripts:
       - name: Install CocoaPods
         script: |
