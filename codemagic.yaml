@@ -10,8 +10,14 @@ workflows:
       - name: Install CocoaPods
         script: |
           #!/bin/bash
-          gem install cocoapods
-          pod install
+
+          if [ -f "Podfile" ]; then
+            echo "Podfile found, installing CocoaPods dependencies..."
+            gem install cocoapods
+            pod install
+          else
+            echo "Podfile not found, skipping CocoaPods installation."
+          fi
 
       - name: Build and test
         script: |
