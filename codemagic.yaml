@@ -1,27 +1,27 @@
 workflows:
-  main:
-    name: Main Workflow
+  flutter_workflow:
+    name: Flutter Workflow
+    instance_type: mac_mini
+    max_build_duration: 60
     environment:
-      vars:
-        XCODE_SCHEME: "UniScore"
-        XCODE_WORKSPACE: "UniScore.xcworkspace"
-        XCODE_PROJECT: "UniScore.xcodeproj"
+      flutter: stable
+      xcode: latest
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
     scripts:
-      - name: Install CocoaPods
-        script: |
-          #!/bin/bash
-
-          if [ -f "Podfile" ]; then
-            echo "Podfile found, installing CocoaPods dependencies..."
-            gem install cocoapods
-            pod install
-          else
-            echo "Podfile not found, skipping CocoaPods installation."
-          fi
-
-      - name: Build and test
-        script: |
-          #!/bin/bash
-          xcodebuild -workspace $XCODE_WORKSPACE -scheme $XCODE_SCHEME clean build test
-
-      # Add more steps as needed for your specific workflow
+      - name: Install dependencies
+        script: flutter pub get
+      - name: Run tests
+        script: flutter test
+      - name: Build iOS and Android
+        script: flutter build apk --release
+    artifacts:
+      - build/**/outputs/**/*.apk
