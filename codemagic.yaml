@@ -1,33 +1,30 @@
 workflows:
-  # Define a workflow
   main:
-    # Specify the trigger for this workflow, such as pushing to a specific branch
-    trigger:
-      - event: push
-        branch: master
-
-    # Specify the environment variables needed for the workflow
+    name: Main Workflow
     environment:
-      XCODE_SCHEME: "UniScore"
-      XCODE_WORKSPACE: "UniScore.xcworkspace"
-      XCODE_PROJECT: "UniScore.xcodeproj"
-
-    # Specify the steps to execute in this workflow
-    steps:
+      vars:
+        XCODE_SCHEME: "UniScore"
+        XCODE_WORKSPACE: "UniScore.xcworkspace"
+        XCODE_PROJECT: "UniScore.xcodeproj"
+    scripts:
       - name: Install dependencies
-        script:
-          - pod install
+        script: |
+          #!/bin/bash
+          pod install
 
       - name: Build and test
-        script:
-          - xcodebuild -workspace $XCODE_WORKSPACE -scheme $XCODE_SCHEME clean build test
+        script: |
+          #!/bin/bash
+          xcodebuild -workspace $XCODE_WORKSPACE -scheme $XCODE_SCHEME clean build test
 
       - name: Archive
-        script:
-          - xcodebuild -workspace $XCODE_WORKSPACE -scheme $XCODE_SCHEME clean archive -archivePath build/UniScore.xcarchive
+        script: |
+          #!/bin/bash
+          xcodebuild -workspace $XCODE_WORKSPACE -scheme $XCODE_SCHEME clean archive -archivePath build/UniScore.xcarchive
 
       - name: Deploy to App Store
-        script:
-          - # Add commands to deploy the app to the App Store
+        script: |
+          #!/bin/bash
+          # Add commands to deploy the app to the App Store
 
       # Add more steps as needed for your specific workflow
