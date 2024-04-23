@@ -7,9 +7,10 @@ workflows:
         XCODE_WORKSPACE: "UniScore.xcworkspace"
         XCODE_PROJECT: "UniScore.xcodeproj"
     scripts:
-      - name: Install dependencies
+      - name: Install CocoaPods
         script: |
           #!/bin/bash
+          gem install cocoapods
           pod install
 
       - name: Build and test
