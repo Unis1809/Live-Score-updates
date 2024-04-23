@@ -10,6 +10,7 @@ workflows:
       - name: Create Xcode Workspace
         script: |
           #!/bin/bash
+          xcodebuild -project $XCODE_PROJECT -scheme $XCODE_SCHEME -derivedDataPath build archive
           touch lib.xcworkspace
           echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Workspace></Workspace>" > lib.xcworkspace
           echo "Xcode Workspace 'lib.xcworkspace' created successfully."
